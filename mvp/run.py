@@ -1,6 +1,11 @@
 import subprocess
 import time
 
+# Start mails reciver
+print("Starting mail reciver...")
+email_process = subprocess.Popen(["python", "mail_reciver.py"])
+time.sleep(2)
+
 # Start the folder monitoring script
 print("Starting folder monitoring...")
 monitor_process = subprocess.Popen(["python", "monitor.py"])
@@ -20,4 +25,5 @@ except KeyboardInterrupt:
     # If the user stops the script (CTRL+C), terminate both processes
     print("\nShutting down...")
     monitor_process.terminate()
+    email_process.terminate()
     streamlit_process.terminate()
