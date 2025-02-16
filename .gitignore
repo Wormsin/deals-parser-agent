@@ -3,3 +3,5 @@
 *exmp_data*
 *using_mail_as_interface_for_llm*
 .env
+*data/
+__pycache__
