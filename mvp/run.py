@@ -3,7 +3,7 @@ import time
 
 # Start mails reciver
 print("Starting mail reciver...")
-email_process = subprocess.Popen(["python", "mail_reciver.py"])
+email_process = subprocess.Popen(["python", "email_reciver.py"])
 time.sleep(2)
 
 # Start the folder monitoring script
