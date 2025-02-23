@@ -9,7 +9,7 @@ def retriever_init(vector_store, metadata, description):
     retriever = vector_store.as_retriever(search_kwargs={'filter':filters})
     
     retrieved_products = retriever.invoke(description)
-    print(filters)
+    #print(filters)
     
     return retrieved_products
 
