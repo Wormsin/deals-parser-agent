@@ -1,8 +1,10 @@
 from dotenv import load_dotenv
 import os
 import time
-from classification_agent import process_file, checker_init, rag_init
+from classification_agent import llm_rag_init, init_vectore_store
 from datetime import datetime
+from process_request import process_file
+from json_agent import checker_init
 
 load_dotenv()
 
@@ -17,18 +19,20 @@ def save_to_csv(df, file_path):
         df.to_csv(file_path, mode='a', header=False, index=False)  # Append without headers
     else:
         df.to_csv(file_path, mode='w', header=True, index=False)  # Create new file
-
+        
+        
 
 def monitor_folder(folder_path):
     """Monitors a folder and updates the Streamlit session with new data."""
     llm = checker_init()
-    rag_chain = rag_init()
+    llm_chain = llm_rag_init()
+    vector_store = init_vectore_store()
     while True:
         files = os.listdir(folder_path)
         for file in files:
             file_path = os.path.join(folder_path, file)
             if os.path.isfile(file_path):
-                df_zayavki, df_tovary = process_file(file_path, llm, rag_chain)
+                df_zayavki, df_tovary = process_file(file_path, llm, llm_chain, vector_store)
                 
                 df_zayavki['дата'] = datetime.now().date()
                 
