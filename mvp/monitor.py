@@ -43,7 +43,7 @@ def monitor_folder(folder_path):
                 os.remove(file_path)
                 print(f"Processed and deleted file: {file_path}")
         
-        time.sleep(1)  # Adjust as needed
+        time.sleep(1)  # Adjust as neededclassification/
         
 
 if __name__ == "__main__":
