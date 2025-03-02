@@ -1,17 +1,22 @@
 from dotenv import load_dotenv
-import os
 import time
-from classification_agent import llm_rag_init, init_vectore_store
+import sys
+import os
+
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
+
+from classification_rag.classification_agent import llm_rag_init, init_vectore_store
 from datetime import datetime
 from process_request import process_file
-from json_agent import checker_init
+from product_parser.json_agent import checker_init
+
 
 load_dotenv()
 
 
 # Define CSV file paths
-DEALS_CSV = "data/deals.csv"
-PRODUCTS_CSV = "data/products.csv"
+DEALS_CSV = "classification_rag/data/deals.csv"
+PRODUCTS_CSV = "classification_rag/data/products.csv"
 
 def save_to_csv(df, file_path):
     """Appends a DataFrame to an existing CSV file, or creates a new one if it doesn't exist."""
@@ -47,4 +52,4 @@ def monitor_folder(folder_path):
         
 
 if __name__ == "__main__":
-    monitor_folder("emails")
+    monitor_folder("classification_rag/emails")

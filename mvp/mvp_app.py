@@ -3,8 +3,14 @@ import pandas as pd
 import os
 import time
 
-DEALS_CSV = "data/deals.csv"
-PRODUCTS_CSV = "data/products.csv"
+import sys
+import os
+
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
+
+
+DEALS_CSV = "classification_rag/data/deals.csv"
+PRODUCTS_CSV = "classification_rag/data/products.csv"
 
 def load_data():
     """Loads deals and products from CSV if available."""

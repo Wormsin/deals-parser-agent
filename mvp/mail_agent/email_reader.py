@@ -7,6 +7,11 @@ from dotenv import load_dotenv
 import os
 import shutil
 
+import sys
+import os
+
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
+
 load_dotenv()  # Loads configuration from .env
 
 # Configuration – make sure these are set in your .env file
@@ -16,7 +21,7 @@ USERNAME = os.getenv("YANDEX_EMAIL")
 PASSWORD = os.getenv("YANDEX_PASSWORD")
 MAILBOX = "INBOX"
 
-ATTACHMENTS_DIR = "attachments"
+ATTACHMENTS_DIR = "mail_agent/attachments"
 
 def connect_to_imap():
     """Connects to Yandex IMAP server."""
@@ -45,14 +50,14 @@ def fetch_unseen_emails(mail):
     return messages
 
 # Функция для загрузки и сохранения базы данных компаний
-def load_company_database(file_name="database/contacts_db.json"):
+def load_company_database(file_name="mail_agent/database/contacts_db.json"):
     try:
         with open(file_name, "r") as f:
             return json.load(f)
     except FileNotFoundError:
         return {}
 
-def save_company_database(data, file_name="database/contacts_db.json"):
+def save_company_database(data, file_name="mail_agent/database/contacts_db.json"):
     with open(file_name, "w") as f:
         json.dump(data, f, indent=4)
 
@@ -104,7 +109,7 @@ def save_attachments(msg):
                 print("Сохранен файл:", filepath)
                 attachment_saved = True
     if attachment_saved:
-        shutil.copy(filepath, "emails/"+decoded_filename)
+        shutil.copy(filepath, "classification_rag/emails/"+decoded_filename)
     return attachment_saved
     
 

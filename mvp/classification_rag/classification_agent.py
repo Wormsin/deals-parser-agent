@@ -3,6 +3,10 @@ from langchain_core.output_parsers import StrOutputParser
 from langchain_chroma import Chroma
 from langchain_openai import OpenAIEmbeddings
 from langchain_openai import ChatOpenAI
+import sys
+import os
+
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 
 
 def llm_rag_init():
@@ -75,7 +79,7 @@ def llm_rag_init():
 
 def init_vectore_store():  
     embedding_model = OpenAIEmbeddings(model="text-embedding-3-small")
-    vector_store = Chroma(embedding_function=embedding_model, collection_name = "products", persist_directory="../chroma_db_price")
+    vector_store = Chroma(embedding_function=embedding_model, collection_name = "products", persist_directory="classification_rag/chroma_db_price_full")
     return vector_store
 
 

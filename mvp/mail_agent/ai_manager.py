@@ -2,6 +2,7 @@ from email_reader import connect_to_imap, fetch_unseen_emails, new_company_check
 import time
 
 
+
 def main():
     print("Запуск приёма писем...")
     mail = connect_to_imap()

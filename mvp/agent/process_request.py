@@ -1,5 +1,5 @@
-from json_agent import extract_text_from_file, convert_to_json
-from retriever import get_retrieved_products
+from product_parser.json_agent import extract_text_from_file, convert_to_json
+from classification_rag.retriever import get_retrieved_products
 import json
 import pandas as pd
 
