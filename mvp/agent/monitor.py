@@ -2,6 +2,7 @@ from dotenv import load_dotenv
 import time
 import sys
 import os
+from pathlib import Path
 
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 
@@ -40,6 +41,7 @@ def monitor_folder(folder_path):
                 df_zayavki, df_tovary = process_file(file_path, llm, llm_chain, vector_store)
                 
                 df_zayavki['дата'] = datetime.now().date()
+                df_zayavki['attachments'] = Path(file_path).name
                 
                  # Save data to CSV files (append mode)
                 save_to_csv(df_zayavki, DEALS_CSV)

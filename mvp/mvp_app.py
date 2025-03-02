@@ -2,7 +2,7 @@ import streamlit as st
 import pandas as pd
 import os
 import time
-
+import os, sys, subprocess
 import sys
 import os
 
@@ -17,6 +17,17 @@ def load_data():
     deals = pd.read_csv(DEALS_CSV) if os.path.exists(DEALS_CSV) else pd.DataFrame(columns=["номер заявки", "дата", "статус", "товары"])
     products = pd.read_csv(PRODUCTS_CSV) if os.path.exists(PRODUCTS_CSV) else pd.DataFrame(columns=["номер заявки", "описание", "наименование", "размеры", "кол-во", "статус", "аналоги"])
     return deals, products
+
+def open_file(filename):
+    try:
+        if sys.platform.startswith("win"):  # Windows
+            os.startfile(filename)
+        elif sys.platform.startswith("darwin"):  # macOS
+            subprocess.call(["open", filename])
+        else:  # Linux
+            subprocess.call(["xdg-open", filename])
+    except Exception as e:
+        st.error(f"Ошибка: {e}")
 
 # Streamlit UI
 st.set_page_config(page_title="Order Viewer", layout="wide")
@@ -71,6 +82,8 @@ while True:
                     st.write(f"**✅ Статус:** {row['статус']}")
                     st.write(f"**📦 Товары:** {row['товары']}")
                     st.write("---")
+                if st.button("Открыть файл"):
+                    open_file(f"mail_agent/attachments/{row['attachments']}")
 
             with tab2:
                 st.write("#### Products in Order")
@@ -84,6 +97,7 @@ while True:
                     st.write(f"**Статус:** {row['статус']}")
                     st.write(f"**Аналоги:** {row['аналоги'].replace('[', '').replace(']', '')}")
                     st.write("---")
+                    
     else:
         st.warning("Пока нет заявок...")
 
