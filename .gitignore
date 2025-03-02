@@ -9,3 +9,5 @@ __pycache__
 attachments
 database
 templates
+mvp/classification_rag/json_price*
+.conda
